@@ -1,0 +1,232 @@
+# swagger.yaml
+
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: NODE API'S
+
+paths:
+  /api/signup:
+    post:
+      summary: Register a new user
+      description: Register a new user with the provided credentials.
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string 
+                username:
+                  type: string
+                email:
+                  type: string
+                dob:
+                  type: Date
+                gender:
+                  type: string
+                mobile:
+                  type: string
+                password:
+                  type: string
+                status:
+                  type: string
+                profile:
+                  type: string
+              required:
+                - name
+                - username
+                - email
+                - dob
+                - gender
+                - monile
+                - password
+                - status
+                - profile
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                # $ref: '#/database/models/User'
+                User:
+                   type: object
+   
+        # Properties of the User schema
+        '409':
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    
+
+  /api/login:
+    post:
+      summary: Authenticate user
+      description: Authenticate a user with their credentials.
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        200:
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/update_u:
+    put:
+      summary: update user
+      description: update  a user with their credentials.
+      tags: [update_user]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                username:
+                  type: string
+                email:
+                  type: string
+                name:
+                  type: string
+              required:
+                - user_id
+                - username
+                - email
+                - name
+      responses:
+        200:
+          description: Successful updation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/getbyid:
+    get:
+      summary: find user by id 
+      description: fetch user details by token
+      tags: [user_by_id]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+              required:
+                - user_id
+               
+      responses:
+        200:
+          description: user verified
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/delbyid:
+    delete:
+      summary: delete a user by id
+      description: by using token verification the user
+      tags: [delete _by_id]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+              required:
+                - user_id
+               
+      responses:
+        200:
+          description: user deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
